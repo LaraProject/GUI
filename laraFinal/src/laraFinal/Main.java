@@ -19,6 +19,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.Timer;
 
 public class Main {
 	
@@ -35,8 +36,65 @@ public class Main {
     JTextField  messageBox;
     JTextArea   chatBox;
     
+    Timer timer;
+    
     public static final Color VERY_LIGHT_YELLOW = new Color(255,255,204);
     
+    // Differents ActionListeners
+    class VersChoix implements ActionListener {
+    	
+    	public void actionPerformed(ActionEvent event) {
+    		homepage.setVisible(false);
+    		chooseSomeone();
+    	}
+    }
+    
+    class EnterServer implements ActionListener {
+    	private String laraIdentity;
+    	public EnterServer(String identity) {
+    		this.laraIdentity = identity;
+    	}
+        public void actionPerformed(ActionEvent event) {
+            username = usernameChooser.getText();
+            if (username.length() < 1) {
+                System.out.println("No!");
+            } else {
+                choosePlayerFrame.setVisible(false);
+                display(laraIdentity);
+            }
+        }
+    }
+      
+    class sendMessageButtonListener implements ActionListener {
+    	
+    	private String identity;
+    	
+    	public sendMessageButtonListener(String identity) {
+    		this.identity = identity;
+    	}
+    	
+        public void actionPerformed(ActionEvent event) {
+            if (messageBox.getText().length() < 1) {
+                // do nothing
+            } else if (messageBox.getText().equals(".clear")) {
+                chatBox.setText("Cleared all messages\n");
+                messageBox.setText("");
+            } else {
+                chatBox.append("<" + username + ">:  " + messageBox.getText() + "\n");
+                
+                timer = new Timer(0, new Reponse(identity, messageBox.getText()));
+                timer.setInitialDelay(1900);
+                timer.setRepeats(false);
+                timer.start();
+
+                messageBox.setText("");
+                
+            }
+            messageBox.requestFocusInWindow();
+        }
+    }
+    
+    // Fonctions
     public static void main(String[] args) {
     	
         SwingUtilities.invokeLater(new Runnable() { // pour maj le gui
@@ -59,7 +117,7 @@ public class Main {
     	chatFrame.setVisible(false);
     	choosePlayerFrame.setVisible(false);
     	
-    	JLabel welcome = new JLabel("Bienvenue sur le chat !");
+    	JLabel welcome = new JLabel("   Bienvenue sur le chat !");
     	JButton continuer = new JButton("Continuer...");
     	continuer.addActionListener(new VersChoix());
 
@@ -86,15 +144,15 @@ public class Main {
         
         talkToLouis = new JButton("Parler avec Louis");
         talkToAnna = new JButton("Parler avec Anna");
-        talkToLouis.addActionListener(new enterServerLouis()); // coder Louis
-        //talkToAnna.addActionListener(new enterServerAnna()); // coder Anna
+        talkToLouis.addActionListener(new EnterServer("Louis")); // coder Louis
+        talkToAnna.addActionListener(new EnterServer("Anna")); // coder Anna
         
         JPanel pan = new JPanel(new GridBagLayout());
         pan.setPreferredSize(new Dimension(300, 120));
         pan.setBackground(Color.WHITE);
         
         GridBagConstraints preRight = new GridBagConstraints();
-        //preRight.insets = new Insets(0, 0, 0, 10);
+
         preRight.anchor = GridBagConstraints.EAST;
         preRight.fill = GridBagConstraints.HORIZONTAL;
         preRight.gridwidth = GridBagConstraints.REMAINDER;
@@ -102,28 +160,22 @@ public class Main {
         // Création des boutons de manière très très rudimentaire
         JPanel buttonAnna = new JPanel();
         buttonAnna.add(talkToAnna);
-        //cell1.setBackground(Color.YELLOW);
-        //cell1.setPreferredSize(new Dimension(100, 40));		
+        buttonAnna.setBackground(VERY_LIGHT_YELLOW);
+	
         JPanel buttonLouis = new JPanel();
         buttonLouis.add(talkToLouis);
-        //cell2.setBackground(Color.red);
-        //cell2.setPreferredSize(new Dimension(100, 40));
+        buttonLouis.setBackground(VERY_LIGHT_YELLOW);
+
         JPanel userLabel = new JPanel();
         userLabel.add(chooseUsernameLabel);
-        //cell3.setBackground(Color.green);
-        //cell3.setPreferredSize(new Dimension(100, 40));
+        userLabel.setBackground(VERY_LIGHT_YELLOW);
+
         JPanel inputZone = new JPanel();
         inputZone.add(usernameChooser, preRight);
-        //cell4.setBackground(Color.black);
-        //cell4.setPreferredSize(new Dimension(200, 200));
+        inputZone.setBackground(VERY_LIGHT_YELLOW);
+
         JPanel description = new JPanel();
         description.add(descr);
-        //Le conteneur principal
-        //JPanel content = new JPanel();
-        //content.setPreferredSize(new Dimension(300, 120));
-        //content.setBackground(Color.WHITE);
-        //On définit le layout manager
-        //content.setLayout(new GridBagLayout());
     		
         //L'objet servant à positionner les composants
         GridBagConstraints gbc = new GridBagConstraints();
@@ -141,7 +193,7 @@ public class Main {
         gbc.gridy = 1;
         pan.add(userLabel, gbc);
         //---------------------------------------------
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        //gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.gridx = 2;
         gbc.gridy = 1;
         pan.add(inputZone);
@@ -173,15 +225,7 @@ public class Main {
 
     }
     
-    class VersChoix implements ActionListener {
-    	
-    	public void actionPerformed(ActionEvent event) {
-    		homepage.setVisible(false);
-    		chooseSomeone();
-    	}
-    }
-    
-    public void displayLouis() { // a personnaliser avec les word2vec etc.
+    public void display(String identity) { // a personnaliser avec les word2vec etc.
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
 
@@ -193,7 +237,7 @@ public class Main {
         messageBox.requestFocusInWindow();
 
         sendMessage = new JButton("Send Message");
-        sendMessage.addActionListener(new sendMessageButtonListener());
+        sendMessage.addActionListener(new sendMessageButtonListener(identity));
 
         chatBox = new JTextArea();
         chatBox.setEditable(false);
@@ -229,101 +273,23 @@ public class Main {
 
     }
     
-    public void displayAnna() { // a personnaliser avec les word2vec etc.
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BorderLayout());
-
-        JPanel southPanel = new JPanel();
-        southPanel.setBackground(Color.BLUE);
-        southPanel.setLayout(new GridBagLayout());
-
-        messageBox = new JTextField(30);
-        messageBox.requestFocusInWindow();
-
-        sendMessage = new JButton("Send Message");
-        sendMessage.addActionListener(new sendMessageButtonListener());
-
-        chatBox = new JTextArea();
-        chatBox.setEditable(false);
-        chatBox.setFont(new Font("Serif", Font.PLAIN, 15));
-        chatBox.setLineWrap(true);
-
-        mainPanel.add(new JScrollPane(chatBox), BorderLayout.CENTER);
-
-        GridBagConstraints left = new GridBagConstraints();
-        left.anchor = GridBagConstraints.LINE_START;
-        left.fill = GridBagConstraints.HORIZONTAL;
-        left.weightx = 512.0D;
-        left.weighty = 1.0D;
-
-        GridBagConstraints right = new GridBagConstraints();
-        right.insets = new Insets(0, 10, 0, 0);
-        right.anchor = GridBagConstraints.LINE_END;
-        right.fill = GridBagConstraints.NONE;
-        right.weightx = 1.0D;
-        right.weighty = 1.0D;
-
-        southPanel.add(messageBox, left);
-        southPanel.add(sendMessage, right);
-
-        mainPanel.add(BorderLayout.SOUTH, southPanel);
-/*
-        newFrame.add(mainPanel);
-        newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        newFrame.setSize(470, 300);
-        newFrame.setVisible(true);
-*/
-    }
-    
-    
-    class enterServerLouis implements ActionListener {
-        public void actionPerformed(ActionEvent event) {
-            username = usernameChooser.getText();
-            if (username.length() < 1) {
-                System.out.println("No!");
-            } else {
-                choosePlayerFrame.setVisible(false);
-                displayLouis();
-            }
-        }
-    }
-    
-    class enterServerAnna implements ActionListener {
-        public void actionPerformed(ActionEvent event) {
-            username = usernameChooser.getText();
-            if (username.length() < 1) {
-                System.out.println("No!");
-            } else {
-                choosePlayerFrame.setVisible(false);
-                displayAnna();
-            }
-        }
-    }
-    
-    class sendMessageButtonListener implements ActionListener {
-        public void actionPerformed(ActionEvent event) {
-            if (messageBox.getText().length() < 1) {
-                // do nothing
-            } else if (messageBox.getText().equals(".clear")) {
-                chatBox.setText("Cleared all messages\n");
-                messageBox.setText("");
-            } else {
-                chatBox.append("<" + username + ">:  " + messageBox.getText() + "\n");
-                
-                
-             /* fonction qui envoie messageBox.getText() au NLP
-              * chatBox.append("<Lara>:  " + reponse(messageBox.getText()) + "\n");
-              */
-                messageBox.setText("");
-                
-            }
-            messageBox.requestFocusInWindow();
-        }
-    }
     
     // Fonction qui permet la conversation entre user et Lara
-    // word2vec et vec2word
-    public String reponse(String message) { return null;}
-    
-
+    class Reponse implements ActionListener {
+    	String identity;
+    	String message;
+    	String reponse;
+    	
+    	public Reponse(String identity, String message) {
+    		this.identity = identity;
+    		this.message = message;
+    	}
+    	
+    	public void actionPerformed(ActionEvent event) {
+    		//chopper une réponse de Lara en envoyant identity et message
+    		reponse = message;
+    		chatBox.append("< "+ identity +" >:  " + reponse + "\n");
+    	}
+    }
+  
 }
