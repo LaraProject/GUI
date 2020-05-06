@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane fx:id="anchorPane0" minHeight="600.0" minWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="application.HomepageCtrl">
+<AnchorPane fx:id="anchorPane0" minHeight="600.0" minWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.HomepageCtrl">
    <children>
       <Pane prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -16,11 +15,13 @@
                   <Font size="41.0" />
                </font>
             </Label>
-            <Label fx:id="usernameChooser" layoutX="303.0" layoutY="261.0" text="Choisis un username :">
+            <Label fx:id="usernameChoice" layoutX="303.0" layoutY="261.0" text="Choisis un username :">
                <font>
                   <Font size="32.0" />
                </font>
             </Label>
+            <Button fx:id="usernameButton" layoutX="602.0" layoutY="384.0" mnemonicParsing="false" onAction="#chooseUsername" text="C'est bon !" />
+            <TextField fx:id="usernameChooser" layoutX="278.0" layoutY="384.0" prefHeight="25.0" prefWidth="298.0" />
          </children>
       </Pane>
    </children>
