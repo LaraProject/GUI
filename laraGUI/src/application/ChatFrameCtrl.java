@@ -1,7 +1,11 @@
 package application;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -9,10 +13,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 //import org.lara.rnn.Server;
 
 public class ChatFrameCtrl extends Main {
+	
+	private List<Label> messages = new ArrayList<>();
 	
     @FXML
     private Label welcomeLabel;
@@ -39,7 +46,7 @@ public class ChatFrameCtrl extends Main {
     private TextField messageInput;
 
     @FXML
-    private TextArea chatBox;
+    private final VBox chatBox;
 
     @FXML
     private Button sendButton;
@@ -81,50 +88,47 @@ public class ChatFrameCtrl extends Main {
 
     @FXML
     void sendMessage(ActionEvent event) {
-    	if (messageInput.getText().length() < 1) {
-            // do nothing
-        } else if (messageInput.getText().equals(".clear")) {
-            chatBox.setText("Cleared all messages\n");
-            messageInput.setText("");
-        } else {
-        	String question = messageInput.getText();
-        	//String answer = server.sendQuestion(question); CAR PAS DE SERVEUR
-        	String answer = "Je n'ai pas accès au serveur.";
-            chatBox.appendText("<" + username + ">:  " + question + "\n");
-            // TRAITER CAS OÙ AUCUN LARA SELECTIONNÉ
-            chatBox.appendText("<"+ Lara +">:  " + answer + "\n"); // doit chopper Lara
-            messageInput.setText("");
-            
-        }
-        messageInput.requestFocus();
+    	send();
     }
 	
 	@FXML
 	private void sendKeyPressed(KeyEvent keyEvent) {
 	    if (keyEvent.getCode() == KeyCode.ENTER) {
-	    	if (messageInput.getText().length() < 1) {
-	            // do nothing
-	        } else if (messageInput.getText().equals(".clear")) {
-	            chatBox.setText("Cleared all messages\n");
-	            messageInput.setText("");
-	        } else {
-	        	String question = messageInput.getText();
-	        	//String answer = server.sendQuestion(question); CAR PAS DE SERVEUR
-	        	String answer = "Je n'ai pas accès au serveur.";
-	            chatBox.appendText("<" + username + ">:  " + question + "\n");
-	            // TRAITER CAS OÙ AUCUN LARA SELECTIONNÉ
-	            chatBox.appendText("<"+ Lara +">:  " + answer + "\n"); // doit chopper Lara
-	            messageInput.setText("");
-	            
-	        }
-	        messageInput.requestFocus();
+	    	send();
 	    }
 	}
 	
 	private void idLara() {
     	//if (server == null)
     		//server = new Server();
-    	chatBox.setText("");
+    	chatBox.getChildren().clear();
 	}
+	
+	private void send() {
+		if (messageInput.getText().length() < 1) {
+            // do nothing
+        } else if (messageInput.getText().equals(".clear")) {
+        	chatBox.getChildren().clear();
+        } else {
+        	String question = messageInput.getText();
+        	Label questionLabel = new Label(question);
+        	//String answer = server.sendQuestion(question); CAR PAS DE SERVEUR
+        	String answer = "Je n'ai pas accès au serveur.";
+        	Label answerLabel = new Label(answer);
+        	
+            //chatBox.appendText("<" + username + ">:  " + question + "\n");
+            // TRAITER CAS OÙ AUCUN LARA SELECTIONNÉ
+            //chatBox.appendText("<"+ Lara +">:  " + answer + "\n"); // doit chopper Lara
+        	
+        	questionLabel.setAlignment(Pos.CENTER_LEFT);
+        	answerLabel.setAlignment(Pos.CENTER_RIGHT);
+        	chatBox.getChildren().add(questionLabel);
+        	chatBox.getChildren().add(answerLabel);
+            messageInput.setText("");
+            
+        }
+        messageInput.requestFocus();
+	}
+
 	
 }
