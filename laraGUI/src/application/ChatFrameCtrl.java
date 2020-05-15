@@ -6,6 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 //import org.lara.rnn.Server;
@@ -68,6 +70,14 @@ public class ChatFrameCtrl extends Main {
     	Lara = "Antoine";
     	idLara();
     }
+    
+	@FXML
+    void exitLara(ActionEvent event) {
+    	Stage stage = (Stage) exitButton.getScene().getWindow();
+        //if (!(server == null))
+        	//server.shutdownServer();
+        stage.close();
+    }
 
     @FXML
     void sendMessage(ActionEvent event) {
@@ -88,14 +98,28 @@ public class ChatFrameCtrl extends Main {
         }
         messageInput.requestFocus();
     }
-
+	
 	@FXML
-    void exitLara(ActionEvent event) {
-    	Stage stage = (Stage) exitButton.getScene().getWindow();
-        //if (!(server == null))
-        	//server.shutdownServer();
-        stage.close();
-    }
+	private void sendKeyPressed(KeyEvent keyEvent) {
+	    if (keyEvent.getCode() == KeyCode.ENTER) {
+	    	if (messageInput.getText().length() < 1) {
+	            // do nothing
+	        } else if (messageInput.getText().equals(".clear")) {
+	            chatBox.setText("Cleared all messages\n");
+	            messageInput.setText("");
+	        } else {
+	        	String question = messageInput.getText();
+	        	//String answer = server.sendQuestion(question); CAR PAS DE SERVEUR
+	        	String answer = "Je n'ai pas accès au serveur.";
+	            chatBox.appendText("<" + username + ">:  " + question + "\n");
+	            // TRAITER CAS OÙ AUCUN LARA SELECTIONNÉ
+	            chatBox.appendText("<"+ Lara +">:  " + answer + "\n"); // doit chopper Lara
+	            messageInput.setText("");
+	            
+	        }
+	        messageInput.requestFocus();
+	    }
+	}
 	
 	private void idLara() {
     	//if (server == null)
