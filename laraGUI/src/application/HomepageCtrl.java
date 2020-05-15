@@ -37,7 +37,7 @@ public class HomepageCtrl extends Main {
     	 Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource(view));
          Scene scene = new Scene(parent);
          Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-         scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+         //scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
          appStage.setScene(scene);
          appStage.show();
     }
