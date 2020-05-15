@@ -20,7 +20,7 @@
                   <Font size="32.0" />
                </font>
             </Label>
-            <Button fx:id="usernameButton" layoutX="602.0" layoutY="384.0" mnemonicParsing="false" text="C'est bon !" />
+            <Button fx:id="usernameButton" layoutX="602.0" layoutY="384.0" mnemonicParsing="false" onAction="#chooseUsername" text="C'est bon !" />
             <TextField fx:id="usernameChooser" layoutX="278.0" layoutY="384.0" prefHeight="25.0" prefWidth="298.0" />
          </children>
       </Pane>

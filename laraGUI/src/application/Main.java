@@ -22,7 +22,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		Parent root;
 		try {
-			root = FXMLLoader.load(getClass().getClassLoader().getResource("Homepage.fxml"));
+			root = FXMLLoader.load(getClass().getClassLoader().getResource(home));
 		} catch (IOException e) {
 			e.printStackTrace();
 			return;

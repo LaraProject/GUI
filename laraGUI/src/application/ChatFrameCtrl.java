@@ -7,6 +7,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+//import org.lara.rnn.Server;
 
 public class ChatFrameCtrl extends Main {
 	
@@ -27,6 +29,9 @@ public class ChatFrameCtrl extends Main {
 
     @FXML
     private Button buttonAntoine;
+    
+    @FXML
+    private Button exitButton;
 
     @FXML
     private TextField messageInput;
@@ -37,28 +42,31 @@ public class ChatFrameCtrl extends Main {
     @FXML
     private Button sendButton;
 
+    // Server RNN
+    //Server server;
+
     @FXML
     void idLouis(ActionEvent event) {
     	Lara = "Louis";
-    	chatBox.setText("");
+    	idLara();
     }
 
     @FXML
     void idAnna(ActionEvent event) {
     	Lara = "Anna";
-    	chatBox.setText("");
+    	idLara();
     }
 
     @FXML
     void idRiad(ActionEvent event) {
     	Lara = "Riad";
-    	chatBox.setText("");
+    	idLara();
     }
 
     @FXML
     void idAntoine(ActionEvent event) {
     	Lara = "Antoine";
-    	chatBox.setText("");
+    	idLara();
     }
 
     @FXML
@@ -69,13 +77,30 @@ public class ChatFrameCtrl extends Main {
             chatBox.setText("Cleared all messages\n");
             messageInput.setText("");
         } else {
-            chatBox.appendText("<" + username + ">:  " + messageInput.getText() + "\n");
+        	String question = messageInput.getText();
+        	//String answer = server.sendQuestion(question); CAR PAS DE SERVEUR
+        	String answer = "Je n'ai pas accès au serveur.";
+            chatBox.appendText("<" + username + ">:  " + question + "\n");
             // TRAITER CAS OÙ AUCUN LARA SELECTIONNÉ
-            chatBox.appendText("<"+ Lara +">:  " + messageInput.getText() + "\n"); // doit chopper Lara
+            chatBox.appendText("<"+ Lara +">:  " + answer + "\n"); // doit chopper Lara
             messageInput.setText("");
             
         }
         messageInput.requestFocus();
     }
 
+	@FXML
+    void exitLara(ActionEvent event) {
+    	Stage stage = (Stage) exitButton.getScene().getWindow();
+        //if (!(server == null))
+        	//server.shutdownServer();
+        stage.close();
+    }
+	
+	private void idLara() {
+    	//if (server == null)
+    		//server = new Server();
+    	chatBox.setText("");
+	}
+	
 }
