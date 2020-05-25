@@ -113,7 +113,7 @@ public class ChatFrameCtrl extends Main {
         	Label questionLabel = new Label(question);
             HBox questionHBox =new HBox();
             questionHBox.getChildren().add(questionLabel);
-            questionHBox.setAlignment(Pos.BASELINE_LEFT);
+            questionHBox.setAlignment(Pos.BASELINE_RIGHT);
             chatBox.getChildren().add(questionHBox);
             chatBox.setSpacing(10);
         	
@@ -122,7 +122,7 @@ public class ChatFrameCtrl extends Main {
         	Label answerLabel = new Label(answer);
             HBox answerHBox =new HBox();
             answerHBox.getChildren().add(answerLabel);
-            answerHBox.setAlignment(Pos.BASELINE_RIGHT);
+            answerHBox.setAlignment(Pos.BASELINE_LEFT);
             chatBox.getChildren().add(answerHBox);
             chatBox.setSpacing(10);
             
