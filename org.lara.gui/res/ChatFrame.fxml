@@ -27,18 +27,16 @@
             </AnchorPane>
           <AnchorPane fx:id="chatPane" minHeight="0.0" minWidth="0.0" onKeyPressed="#sendKeyPressed" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <SplitPane dividerPositions="0.8540268456375839" layoutX="101.0" layoutY="149.0" orientation="VERTICAL" prefHeight="598.0" prefWidth="697.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
-                              <VBox fx:id="chatBox" prefHeight="505.0" prefWidth="695.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <VBox fx:id="chatBox" prefHeight="505.0" prefWidth="695.0" />
                            </children>
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
-                              <Button fx:id="sendButton" layoutX="600.0" layoutY="29.0" mnemonicParsing="false" onAction="#sendMessage" onKeyPressed="#sendKeyPressed" text="Envoyer" AnchorPane.bottomAnchor="29.0" AnchorPane.rightAnchor="60.0" />
-                              <TextField fx:id="messageInput" layoutX="32.0" layoutY="29.0" prefHeight="25.0" prefWidth="449.0" AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="32.0" />
-                           	<TextFlow fx:id="emojiList" layoutX="0.0" layoutY="29.0" prefHeight="91.0" prefWidth="260.0" visible="false">
+                              <Button fx:id="sendButton" layoutX="399.0" layoutY="507.0" mnemonicParsing="false" onAction="#sendMessage" onKeyPressed="#sendKeyPressed" text="Envoyer"/>
+                              <TextField fx:id="messageInput" layoutX="21.0" layoutY="507.0" prefHeight="30.0" prefWidth="337.0" promptText="Type your message"/>
+                           		<TextFlow fx:id="emojiList" layoutX="420.0" layoutY="507.0" prefHeight="91.0" prefWidth="260.0" visible="false">
 				               <children>
 				                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="😀" />
 				                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="😁" />
@@ -122,11 +120,9 @@
 				                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="🙏" />
                                 </children>
             				</TextFlow>
-            				<Button fx:id="btnEmoji" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="550.0" layoutY="29.0" maxWidth="-Infinity" minHeight="19.0" minWidth="39.0" mnemonicParsing="false" onAction="#emojiAction" styleClass="btnEmoji" text="😊" />
+            				<Button fx:id="btnEmoji" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="360.0" layoutY="507.0" maxWidth="-Infinity" minHeight="19.0" minWidth="39.0" mnemonicParsing="false" onAction="#emojiAction" styleClass="btnEmoji" text="😊" />
                            </children>
                         </AnchorPane>
-                    </items>
-                  </SplitPane>
                </children>
             </AnchorPane>
         </items>
