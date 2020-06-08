@@ -1,4 +1,4 @@
-package application;
+package org.lara.gui;
 
 import javafx.scene.shape.HLineTo;
 import javafx.scene.shape.LineTo;

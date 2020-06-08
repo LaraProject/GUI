@@ -1,4 +1,4 @@
-package application;
+package org.lara.gui;
 	
 import java.io.IOException;
 import java.util.Optional;

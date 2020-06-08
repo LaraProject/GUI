@@ -1,4 +1,4 @@
-package application;
+package org.lara.gui;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;

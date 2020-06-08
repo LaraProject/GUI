@@ -1,4 +1,4 @@
-package application;
+package org.lara.gui;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

@@ -1,4 +1,4 @@
-package application;
+package org.lara.gui;
 
 public enum BubbleSpec {
 	
