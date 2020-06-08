@@ -19,10 +19,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.stage.WindowEvent;
-import java.util.Optional;
 
 //import org.lara.rnn.Server;
 //import org.lara.nlp.context.Processer;
@@ -71,10 +67,6 @@ public class ChatFrameCtrl extends Main {
     
     @FXML
     private Button btnEmoji;
-    
-
-    // Server RNN
-    //Server server;
 
     @FXML
     void idLouis(ActionEvent event) {
@@ -144,10 +136,15 @@ public class ChatFrameCtrl extends Main {
             chatBox.getChildren().add(questionHBox);
             chatBox.setSpacing(10);
         	
-        	//String answer = server.sendQuestion(Processer.clean_text(question)); CAR PAS DE SERVEUR
-        	String answer = "Je n'ai pas accès au serveur.";
-        	//answer = EmojiUtils.emojify(answer);
-        	//answer = answer.replaceAll(":eyebrows:", "\\^\\^");
+        	//String answer = "";
+		//if (server == null)
+	        //	answer = "Je n'ai pas accès au serveur.";
+	        //else {
+        	//	answer = server.sendQuestion(Processer.clean_text(question));
+        	//	answer = EmojiUtils.emojify(answer);
+        	//	answer = answer.replaceAll(":eyebrows:", "\\^\\^");
+        	//}
+		String answer = answer = "Je n'ai pas accès au serveur.";
         	BubbledLabel answerLabel = new BubbledLabel(answer);
         	answerLabel.setBackground(new Background(new BackgroundFill(Color.WHITE,null, null)));
         	answerLabel.setBubbleSpec(BubbleSpec.FACE_LEFT_CENTER);
@@ -183,29 +180,5 @@ public class ChatFrameCtrl extends Main {
            });
        }
 	 }
-
-	
-	private void closeWindowEvent(WindowEvent event) {
-        System.out.println("Window close request ...");
-
-        
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.getButtonTypes().remove(ButtonType.OK);
-            alert.getButtonTypes().add(ButtonType.CANCEL);
-            alert.getButtonTypes().add(ButtonType.YES);
-            alert.setTitle("Quitter l'application");
-            alert.setContentText(String.format("Vous partez déjà ?"));
-            Optional<ButtonType> res = alert.showAndWait();
-
-            if(res.isPresent()) {
-                if(res.get().equals(ButtonType.CANCEL)) {
-                    event.consume();
-                } else {
-            	//if (!(server == null))
-                	//server.shutdownServer();
-                }
-            }
-        
-    }
 	
 }

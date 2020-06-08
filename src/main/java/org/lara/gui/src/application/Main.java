@@ -22,7 +22,10 @@ public class Main extends Application {
 	String stylesheet = "application.css"; // la feuille de style
 	String username = "Hacker anonyme"; // à changer avec la fenêtre d'accueil
 	// les autres variables utiles sont définies dans les controllers
-	
+
+    // Server RNN
+    // Server server;
+
 	@Override
 	public void start(Stage primaryStage) {
 		Parent root;
@@ -60,8 +63,10 @@ public class Main extends Application {
                 if(res.get().equals(ButtonType.CANCEL)) {
                     event.consume();
                 } else {
-            	//if (!(server == null))
-                	//server.shutdownServer();
+                	// Open a new connection to shutdown the server
+                	// server = new Server();
+	            	// if (!(server == null))
+	                //	server.shutdownServer();
                 }
             }
         
