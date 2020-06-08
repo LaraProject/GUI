@@ -7,8 +7,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="anchorPane" minHeight="600.0" minWidth="1000.0" stylesheets="application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ChatFrameCtrl">
-   <children>
+<AnchorPane fx:id="anchorPane" minHeight="600.0" minWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ChatFrameCtrl">
+<!-- AnchorPane fx:id="anchorPane" minHeight="600.0" minWidth="1000.0" stylesheets="application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ChatFrameCtrl">
+ -->  <children>
       <SplitPane dividerPositions="0.29797979797979796" layoutX="175.0" layoutY="220.0" prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -29,7 +30,11 @@
                <children>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
-                              <VBox fx:id="chatBox" prefHeight="505.0" prefWidth="695.0" />
+                           <ScrollPane fx:id="scrollPane" accessibleRole="PARENT" hbarPolicy="NEVER" prefHeight="507.0" prefWidth="695.0" vvalue="1.0">
+               					<content>
+                              		<VBox fx:id="chatBox" alignment="TOP_RIGHT" prefHeight="505.0" prefWidth="665.0" />
+                            	</content>
+            				</ScrollPane>
                            </children>
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
